@@ -57,4 +57,12 @@ def histogram(roots, options=dict()):
     flat = np.concatenate(list([roots[d].flatten() for d in degrees]))
     ax.hist2d(np.real(flat), np.imag(flat), bins=opts['bins'], norm=opts['norm'], cmap=opts['cmap'])
 
-    
+def points(roots, options=dict()):
+    opts = defaults
+    for k in options:
+        opts[k] = options[k]
+
+    fig, ax = _figureSetup(opts)
+    degrees = np.sort([k for k in roots.keys()])
+    for d in degrees[::-1]:
+        ax.plot(np.real(roots[d].flatten()), np.imag(roots[d].flatten()), lineStyle='None', marker=',') # , means pixels
