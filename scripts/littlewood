@@ -20,18 +20,37 @@ def ensure_roots(degree, coefficients, name="", file=None):
         ...
     return roots
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Generate at plot roots of polynomials.")
-    parser.add_argument("--degree", nargs="*", default=[1,6], type=int)
-    parser.add_argument("--coefficients", help="", nargs="*", default='littlewood')
+    parser.add_argument("--degree",
+                        help="If 1 integer is given, just do that degree.\
+                              If 2 integers are given, do every degree from the first to the last, inclusive.\
+                              If 3 integers are given, do every degree in strides of the last integer.",
+                        nargs="*",
+                        default=[1,6],
+                        type=int
+                        )
+    parser.add_argument("--coefficients",
+                        help="If littlewood, the coefficents are ±1.\
+                              If roots-of-unity n, the coefficients are the nth roots of unity.\
+                              If integers n, the coefficients are integers from -n to +n, inclusive",
+                        nargs="*",
+                        default='littlewood'
+                        )
     parser.add_argument("--data", help="An h5 file where we can read roots if possible and write roots to.", default=None)
 
-    parser.add_argument("--show", action='store_true')
+    parser.add_argument("--show",
+                        nargs=2,
+                        help="The first argument can be [histogram,points], deciding what kind of figure to show.\
+                              The second argument can be 'screen' or the name of a target file to write the image to.",
+                        default=['histogram', 'screen']
+                        )
 
     args = parser.parse_args()
 
     options = dict()
+
+    options['data'] = args.data
 
     if args.coefficients == 'littlewood':
         options['name'] = 'littlewood'
@@ -50,12 +69,22 @@ if __name__ == '__main__':
     elif 3 == len(args.degree):
         options['degrees'] = np.arange(args.degree[0], args.degree[1]+1, args.degree[2])
 
-    options['data'] = args.data
 
     roots = dict()
     for d in options['degrees']:
+        print("Degree", d, "...")
         roots[d] = ensure_roots(d, options['coefficients'], name=options['name'], file=options['data'])
 
-    if args.show:
-        littlewood.plot.histogram(roots)
+    defaults = {
+        'bins':     4096,
+        'figsize':  (24,24),
+    }
+
+    if "histogram" == args.show[0]:
+        littlewood.plot.histogram(roots, defaults)
+    elif "points" == args.show[0]:
+        littlewood.plot.points(roots, defaults)
+    if "screen" != args.show[1]:
+        plt.savefig(args.show[1], bbox_inches='tight', dpi=300)
+    else:
         plt.show()
