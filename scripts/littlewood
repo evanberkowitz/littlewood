@@ -4,6 +4,7 @@ import littlewood
 import argparse
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 def ensure_roots(degree, coefficients, name="", file=None):
     try:
@@ -15,6 +16,7 @@ def ensure_roots(degree, coefficients, name="", file=None):
     try:
         littlewood.io.write(file, name, degree, roots)
     except:
+        print("Writing failed :(")
         ...
     return roots
 
@@ -22,19 +24,24 @@ def ensure_roots(degree, coefficients, name="", file=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Generate at plot roots of polynomials.")
     parser.add_argument("--degree", nargs="*", default=[1,6], type=int)
-    parser.add_argument("--coefficients", help="", default='littlewood')
+    parser.add_argument("--coefficients", help="", nargs="*", default='littlewood')
     parser.add_argument("--data", help="An h5 file where we can read roots if possible and write roots to.", default=None)
 
-    args = parser.parse_args()
+    parser.add_argument("--show", action='store_true')
 
-    print(args)
+    args = parser.parse_args()
 
     options = dict()
 
     if args.coefficients == 'littlewood':
         options['name'] = 'littlewood'
         options['coefficients'] = littlewood.coefficients.littlewood()
-    # elif args['coefficients'] == :
+    if args.coefficients[0] == 'roots-of-unity':
+        options['coefficients'] = littlewood.coefficients.roots_of_unity(int(args.coefficients[1]))
+        options['name'] = 'roots-of-unity-{}'.format(int(args.coefficients[1]))
+    if args.coefficients[0] == 'integers':
+        options['coefficients'] = littlewood.coefficients.integers(int(args.coefficients[1]))
+        options['name'] = 'integers-{}'.format(int(args.coefficients[1]))
 
     if 1 == len(args.degree):
         options['degrees'] = np.array([args.degree[0]])
@@ -49,4 +56,6 @@ if __name__ == '__main__':
     for d in options['degrees']:
         roots[d] = ensure_roots(d, options['coefficients'], name=options['name'], file=options['data'])
 
-    
+    if args.show:
+        littlewood.plot.histogram(roots)
+        plt.show()
