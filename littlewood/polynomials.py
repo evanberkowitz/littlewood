@@ -28,4 +28,8 @@ class polynomials:
                     raise StopIteration()
                 self.picks[i] = np.mod(self.picks[i], self.n)
 
+        # We disallow polynomials whose leading coefficient is 0.
+        # Those polynomials belong to the previous degree.
+        if self.c[self.picks][-1] == 0:
+            return next(self)
         return self.c[self.picks]
