@@ -21,7 +21,15 @@ def ensure_roots(degree, coefficients, name="", file=None):
     return roots
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Generate at plot roots of polynomials.")
+    parser = argparse.ArgumentParser(
+                                    formatter_class=argparse.RawDescriptionHelpFormatter,
+                                    description="Generate and plot roots of polynomials.",
+                                    epilog="""Copyright (C) 2019  Evan Berkowitz littlewood@evanberkowitz.com
+
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software (GPLv3), and you are welcome to redistribute it under certain conditions.
+"""
+                                    )
     parser.add_argument("--degree",
                         help="If 1 integer is given, just do that degree.\
                               If 2 integers are given, do every degree from the first to the last, inclusive.\
