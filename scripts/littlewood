@@ -41,7 +41,8 @@ This is free software (GPLv3), and you are welcome to redistribute it under cert
     parser.add_argument("--coefficients",
                         help="If littlewood, the coefficients are ±1.\
                               If roots-of-unity n, the coefficients are the nth roots of unity.\
-                              If integers n, the coefficients are integers from -n to +n, inclusive",
+                              If integers n, the coefficients are integers from -n to +n, inclusive \
+                              If gaussian-integers n, the coefficients are the square of gaussian integers from -n-ni to n+ni inclusive.",
                         nargs="*",
                         default='littlewood'
                         )
@@ -63,12 +64,15 @@ This is free software (GPLv3), and you are welcome to redistribute it under cert
     if args.coefficients == 'littlewood':
         options['name'] = 'littlewood'
         options['coefficients'] = littlewood.coefficients.littlewood()
-    if args.coefficients[0] == 'roots-of-unity':
+    elif args.coefficients[0] == 'roots-of-unity':
         options['coefficients'] = littlewood.coefficients.roots_of_unity(int(args.coefficients[1]))
         options['name'] = 'roots-of-unity-{}'.format(int(args.coefficients[1]))
-    if args.coefficients[0] == 'integers':
+    elif args.coefficients[0] == 'integers':
         options['coefficients'] = littlewood.coefficients.integers(int(args.coefficients[1]))
         options['name'] = 'integers-{}'.format(int(args.coefficients[1]))
+    elif args.coefficients[0] == 'gaussian-integers':
+        options['coefficients'] = littlewood.coefficients.gaussian_integers(int(args.coefficients[1]))
+        options['name'] = 'gaussian-integers-{}'.format(int(args.coefficients[1]))
 
     if 1 == len(args.degree):
         options['degrees'] = np.array([args.degree[0]])

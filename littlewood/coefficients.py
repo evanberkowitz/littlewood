@@ -9,3 +9,6 @@ def roots_of_unity(n):
 
 def integers(n):
     return np.arange(-n, n+1)
+
+def gaussian_integers(n):
+    return np.array([ a+1j*b for a in integers(n) for b in integers(n) ])
