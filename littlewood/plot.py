@@ -8,8 +8,8 @@ from matplotlib import colors
 defaults = {
     'figsize'   : np.array([6,6]),
     'aspect'    : 1,
-    'xlim'      : np.array([-2.66, 2.66]),
-    'ylim'      : np.array([-1.8 , 1.8 ]),
+    'xlim'      : np.array([-2.88, 2.88]),
+    'ylim'      : np.array([-2 , 2 ]),
     'dpi'       : 300,
     'facecolor' : 'black',
     'axisVisible' : False,
