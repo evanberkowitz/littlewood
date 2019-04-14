@@ -31,5 +31,7 @@ class polynomials:
         # We disallow polynomials whose leading coefficient is 0.
         # Those polynomials belong to the previous degree.
         if self.c[self.picks][-1] == 0:
-            return next(self)
+            # We can skip a whole boatload of polynomials.
+            # To accomplish this, just advance the leading coefficient by one, making it (presumably) nonzero.
+            self.picks[-1]+=1
         return self.c[self.picks]
