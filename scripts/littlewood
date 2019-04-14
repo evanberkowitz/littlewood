@@ -115,6 +115,6 @@ This is free software (GPLv3), and you are welcome to redistribute it under cert
         defaults['figsize'] = (approximate_length, approximate_length)
         littlewood.plot.points(roots, defaults)
     if "screen" != args.show[1]:
-        plt.savefig(args.show[1], bbox_inches='tight', dpi=300)
+        plt.savefig(args.show[1], bbox_inches='tight', dpi=defaults['dpi'])
     else:
         plt.show()
