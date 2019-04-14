@@ -16,7 +16,6 @@ def ensure_roots(degree, coefficients, name="", file=None):
     try:
         littlewood.io.write(file, name, degree, roots)
     except:
-        print("Writing failed :(")
         ...
     return roots
 
