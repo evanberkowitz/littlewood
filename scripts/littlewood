@@ -31,7 +31,7 @@ if __name__ == '__main__':
                         type=int
                         )
     parser.add_argument("--coefficients",
-                        help="If littlewood, the coefficents are ±1.\
+                        help="If littlewood, the coefficients are ±1.\
                               If roots-of-unity n, the coefficients are the nth roots of unity.\
                               If integers n, the coefficients are integers from -n to +n, inclusive",
                         nargs="*",
