@@ -12,6 +12,8 @@ When we look at the third roots of unity, we find a similar structure, but rathe
 
 <img src="images/r3-d1to12.png" alt="A colorful, three-fold symmetric seemingly-fractal structure." />
 
+Recently, the roots of Littlewood polynomials were featured on [Curiosa Mathematica][curiosa-mathematica], which inspired me to write a nice python package that facilitates the creation of pictures of these structures.
+
 # Python package
 
 Previously I had made figures of this kind in `Mathematica`, but it was struggling to produce very large images.  This `python` module provides almost the same functionality.
@@ -36,7 +38,8 @@ Rather than use the script, one may also `import littlewood` to iterate over pol
 
 
 
-[CC]:             https://creativecommons.org/licenses/by-sa/4.0/deed.en
-[GPLv3]:          https://www.gnu.org/licenses/gpl-3.0.en.html
-[ncategory-cafe]: https://golem.ph.utexas.edu/category/2009/12/this_weeks_finds_in_mathematic_46.html
-[wikipedia]:      https://en.wikipedia.org/wiki/Littlewood_polynomial
+[CC]:                   https://creativecommons.org/licenses/by-sa/4.0/deed.en
+[curiosa-mathematica]:  http://curiosamathematica.tumblr.com/post/183919590932/curiosamathematica-littlewood-polynomials-are
+[GPLv3]:                https://www.gnu.org/licenses/gpl-3.0.en.html
+[ncategory-cafe]:       https://golem.ph.utexas.edu/category/2009/12/this_weeks_finds_in_mathematic_46.html
+[wikipedia]:            https://en.wikipedia.org/wiki/Littlewood_polynomial
