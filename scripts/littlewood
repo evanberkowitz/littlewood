@@ -49,9 +49,10 @@ This is free software (GPLv3), and you are welcome to redistribute it under cert
 
     parser.add_argument("--show",
                         nargs=2,
-                        help="The first argument can be [histogram,points], deciding what kind of figure to show.\
+                        help="The first argument can be [none,histogram,points], deciding what kind of figure to show.\
+                              Default is none, don't render anything.   \
                               The second argument can be 'screen' or the name of a target file to write the image to.",
-                        default=['histogram', 'screen']
+                        default=["none"]
                         )
 
     args = parser.parse_args()
@@ -92,7 +93,9 @@ This is free software (GPLv3), and you are welcome to redistribute it under cert
         'figsize':  (5,5),
     }
 
-    if "histogram" == args.show[0]:
+    if "none" == args.show[0]:
+        exit()
+    elif "histogram" == args.show[0]:
         littlewood.plot.histogram(roots, defaults)
     elif "points" == args.show[0]:
         # What follows is a heuristic calculation to get a reasonable view.
