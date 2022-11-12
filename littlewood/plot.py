@@ -65,4 +65,4 @@ def points(roots, options=dict()):
     fig, ax = _figureSetup(opts)
     degrees = np.sort([k for k in roots.keys()])
     for d in degrees[::-1]:
-        ax.plot(np.real(roots[d].flatten()), np.imag(roots[d].flatten()), lineStyle='None', marker=',') # , means pixels
+        ax.plot(np.real(roots[d].flatten()), np.imag(roots[d].flatten()), linestyle='None', marker=',') # , means pixels
