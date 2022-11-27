@@ -6,19 +6,6 @@ import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 
-def ensure_roots(degree, coefficients, name="", file=None):
-    try:
-        return littlewood.io.read(file, name, degree)
-    except:
-        ...
-
-    roots = np.array([ littlewood.roots(p) for p in littlewood.polynomials(degree, coefficients)])
-    try:
-        littlewood.io.write(file, name, degree, roots)
-    except:
-        ...
-    return roots
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
                                     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -85,41 +72,27 @@ This is free software (GPLv3), and you are welcome to redistribute it under cert
     roots = dict()
     for d in options['degrees']:
         print("Degree", d, "...")
-        roots[d] = ensure_roots(d, options['coefficients'], name=options['name'], file=options['data'])
+        roots[d] = littlewood.ensure_roots(d, options['coefficients'], name=options['name'], file=options['data'])
 
     defaults = {
-        'dpi':      300,
-        'bins':     4096,
-        'figsize':  (5,5),
+            'alpha':  0.1,
+            #'marker': '.',
     }
 
     if "none" == args.show[0]:
         exit()
-    elif "histogram" == args.show[0]:
-        littlewood.plot.histogram(roots, defaults)
+
+    fig, ax = littlewood.plot.one_axis_figure(**defaults)
+
+    if "histogram" == args.show[0]:
+        plotter = littlewood.plot.histogram
     elif "points" == args.show[0]:
-        # What follows is a heuristic calculation to get a reasonable view.
-        # We start by getting the number of roots for the highest degree.
-        most = len(roots[max(roots)].flatten())
+        plotter = littlewood.plot.points
 
-        # We pick a pleasing density, which can be adjusted.
-        # A higher density entails a smaller image.
-        pleasing_density = 0.1
+    plotter(ax, roots, **defaults)
 
-        # Calculate an approximate area required to get the density correct.
-        approximate_area = most / pleasing_density # in pixels
-        approximate_area = approximate_area / defaults['dpi']**2 # in inches
+    fig.tight_layout()
 
-        # Using that area, construct a length.
-        approximate_length = int(np.ceil(np.sqrt(approximate_area)))
-
-        # But, disallow images that are too too small,
-        # pulling a minimal size from the defaults.
-        approximate_length = max(approximate_length, min(defaults['figsize']))
-
-        # Write the calculated size back.
-        defaults['figsize'] = (approximate_length, approximate_length)
-        littlewood.plot.points(roots, defaults)
     if "screen" != args.show[1]:
         plt.savefig(args.show[1], bbox_inches='tight', dpi=defaults['dpi'])
     else:

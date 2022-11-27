@@ -11,6 +11,8 @@ setuptools.setup(
     description="Visualize roots of classes of polynomials",
     long_description="text/markdown",
     url="https://github.com/evanberkowitz/littlewood",
-    scripts=['scripts/littlewood'],
+    scripts=['scripts/littlewood', 
+             'scripts/littlewood-morph',
+             ],
     packages=setuptools.find_packages(),
 )

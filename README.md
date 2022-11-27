@@ -30,10 +30,32 @@ which will read already-computed roots for each degree from 1 to 20 from `little
 
 Rather than use the script, one may also `import littlewood` to iterate over polynomials, solve them, etc. and then manipulate their roots to your hearts content.
 
+# Animations
+
+Rather than staying limited to fixed coefficients, we can visualize how the roots change as we change the coefficients.  In particular, we can let the coefficients change with time and make a movie!  Letting time go from 0 to 1, we can pick the coefficients to be `exp(2πi time range(symmetry))` where the figure will reflect the symmetry at integer multiples of `1/symmetry` in time.
+
+These may be visualized using `littlewood-morph`.  The options and flags are explained in the `--help`.
+The most animation-specific option, `--layer`, indicates you want see multiple sweeps through time, each time adding the next degree.
+So
+
+```bash
+littlewood-morph lz2d6.mp4 --symmetry 2         \
+                           --degree 1 6         \
+                           --steps 1000         \
+                           --layer              \
+                           --data ./morph.h5
+```
+
+yields
+
+https://user-images.githubusercontent.com/129339/204161484-6ec96c3d-ef01-461c-ae1c-1e94fd4418d8.mp4
+
+NB: These movies require a LOT more storage, compared to storing the data for the stills of Littlewood polynomials of the same degree.
+
 # LICENSE
 
 `littlewood` is (C) Evan Berkowitz 2019, released under [GPLv3][GPLv3], which is provided in `LICENSE`.  Any images provided in this repository are [CC BY-SA 4.0][CC].
-
+I ask that you maintain the artist metadata on any generated movies.
 
 
 
