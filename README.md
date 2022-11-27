@@ -48,6 +48,8 @@ littlewood-morph lz2d6.mp4 --symmetry 2         \
 
 yields
 
+https://user-images.githubusercontent.com/129339/204161484-6ec96c3d-ef01-461c-ae1c-1e94fd4418d8.mp4
+
 NB: These movies require a LOT more storage, compared to storing the data for the stills of Littlewood polynomials of the same degree.
 
 # LICENSE
