@@ -13,6 +13,7 @@ def ensure_roots(degree, coefficients, name="", file=None):
     except:
         ...
 
+    import numpy as np
     roots = np.array([ littlewood.roots(p) for p in littlewood.polynomials(degree, coefficients)])
     try:
         littlewood.io.write(file, name, degree, roots)
